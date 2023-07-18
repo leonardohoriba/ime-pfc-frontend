@@ -7,4 +7,12 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
+class Detection(models.Model):
+    time = models.CharField(max_length=250)
+    state = models.CharField(max_length=250)
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    danger = models.FloatField()
 
+    def __str__(self):
+        return self.time
