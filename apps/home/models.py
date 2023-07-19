@@ -13,6 +13,8 @@ class Detection(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
     danger = models.FloatField()
+    sensor = models.CharField(max_length=50)
+    sensortype = models.CharField(max_length=25)
 
     def __str__(self):
         return self.time

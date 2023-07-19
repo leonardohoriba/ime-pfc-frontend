@@ -6,8 +6,22 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-
     <!-- ### $App Screen Content ### -->
+
+    <!-- Aqui vai ser a nova pagina de forms
+    <main class='main-content bgc-grey-100'>
+      <div id='mainContent'>
+        <div class="container-fluid">
+          <h4 class="c-grey-900 mT-10 mB-30">Upload de arquivo CSV</h4>
+            <form method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ form }}
+              <button class="btn btn-primary btn-color" type="submit">Enviar</button>
+            </form>
+        </div>
+      </div>
+    </main>
+    -->
     <main class='main-content bgc-grey-100'>
       <div id='mainContent'>
         <div class="row gap-20 masonry pos-r">
@@ -254,7 +268,7 @@
         </div>
       </div>
     </main>
-
+  
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
