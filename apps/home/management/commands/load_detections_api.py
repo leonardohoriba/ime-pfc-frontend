@@ -21,10 +21,9 @@ class Command(BaseCommand):
         # df['Sensor Type'] = 'Radiológico'
         # df['Sensor'] = 'SPIR-ID'
         # records = df.to_dict('records')
-        url = "https://backend-pr5m6uxofa-rj.a.run.app/table"  # URL da API que retorna os dados JSON
+        url = "https://backend-pr5m6uxofa-rj.a.run.app/table/spirid"  # URL da API que retorna os dados JSON
         response = requests.get(url)
         records = response.json()
-
         for record in records:
             # Acrescenta os dados na base de dados
             latitude = record['Latitude']
