@@ -2,7 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
-
+pfc_front/
 # C extensions
 *.so
 
