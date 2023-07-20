@@ -3,7 +3,7 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 from .models import Detection
-from .map import render_map
+from .map import render_map, get_map
 from .forms import render_upload_form
 from django import template
 from django.contrib.auth.decorators import login_required
@@ -14,7 +14,9 @@ import pandas as pd
 
 @login_required(login_url="/login/")
 def index(request):
-    context = {'segment': 'index'}
+    context = {}
+    #context['segment'] = 'index'
+    context['map'] = get_map()
 
     html_template = loader.get_template('home/index.html')
     return HttpResponse(html_template.render(context, request))

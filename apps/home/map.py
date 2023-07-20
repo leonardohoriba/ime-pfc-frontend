@@ -63,8 +63,7 @@ class MarkerWithProps(Marker):
         super(MarkerWithProps, self).__init__(location=location,popup=popup,tooltip=tooltip,icon=icon,draggable=draggable)
         self.props = json.loads(json.dumps(props))
 
-def get_map_context():
-    context = {}
+def get_map():
     detections = Detection.objects.all()
     initial_location = [-22.870974, -43.42801]
     m = folium.Map(location=initial_location, zoom_start=16, min_zoom=1.5, max_bounds=True)
@@ -78,10 +77,10 @@ def get_map_context():
             icon=(folium.Icon(color=colors[detection.danger], icon=icons[detection.danger], prefix='fa')),
         ).add_to(marker_cluster)
     marker_cluster.add_to(m)
-    context['map'] = m._repr_html_()
-    return context
+    return m._repr_html_()
 
 def render_map(request):
-    context = get_map_context()
+    context = {}
+    context['map'] = get_map()
     html_template = loader.get_template('home/map.html')
     return HttpResponse(html_template.render(context, request))
