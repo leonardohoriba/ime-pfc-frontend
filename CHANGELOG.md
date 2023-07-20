@@ -4,12 +4,12 @@
 ### Improvements
 
 - Bumop UI: Use Gulp-Generated version
-  - [Adminator](https://github.com/app-generator/adminator) **v2.0.3**
+  - [](https://github.com/app-generator/) **v2.0.3**
 
 ## [1.0.3] 2022-06-11
 ### Improvements
 
-- Built with [Adminator Generator](https://appseed.us/generator/adminator/)
+- Built with [ Generator](https://appseed.us/generator//)
   - Timestamp: `2022-06-11 09:29`
 
 ## [1.0.2] 2022-01-20
@@ -37,4 +37,4 @@
 ### Initial Release
 
 - Codebase: [Django Dashboard Boilerplate](https://github.com/app-generator/boilerplate-code-flask-dashboard) v1.0.2
-- UI Kit release: [Adminator](https://github.com/puikinsh/Adminator-admin-dashboard) - build timestamp 2020-07-10
+- UI Kit release: [](https://github.com/puikinsh/-admin-dashboard) - build timestamp 2020-07-10
