@@ -3,271 +3,122 @@
 {% block title %} Forms {% endblock title %}
 
 <!-- Specific CSS goes HERE  -->
+
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
     <!-- ### $App Screen Content ### -->
-
-    <!-- Aqui vai ser a nova pagina de forms
     <main class='main-content bgc-grey-100'>
       <div id='mainContent'>
         <div class="container-fluid">
-          <h4 class="c-grey-900 mT-10 mB-30">Upload de arquivo CSV</h4>
-            <form method="post" enctype="multipart/form-data">
-              {% csrf_token %}
-              {{ form }}
-              <button class="btn btn-primary btn-color" type="submit">Enviar</button>
-            </form>
-        </div>
-      </div>
-    </main>
-    -->
-    <main class='main-content bgc-grey-100'>
-      <div id='mainContent'>
-        <div class="row gap-20 masonry pos-r">
-          <div class="masonry-sizer col-md-6"></div>
-          <div class="masonry-item col-md-6">
-            <div class="bgc-white p-20 bd">
-              <h6 class="c-grey-900">Basic Form</h6>
-              <div class="mT-30">
-                <form>
-                  <div class="mb-3">
-                    <label class="form-label" for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                    <small id="emailHelp" class="text-muted">We'll never share your email with anyone else.</small>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label" for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                  </div>
-                  <div class="checkbox checkbox-circle checkbox-info peers ai-c mB-15">
-                    <input type="checkbox" id="inputCall1" name="inputCheckboxesCall" class="peer">
-                    <label for="inputCall1" class="form-label peers peer-greed js-sb ai-c">
-                      <span class="peer peer-greed">Call John for Dinner</span>
-                    </label>
-                  </div>
-                  <button type="submit" class="btn btn-primary btn-color">Submit</button>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div class="masonry-item col-md-6">
-            <div class="bgc-white p-20 bd">
-              <h6 class="c-grey-900">Complex Form Layout</h6>
-              <div class="mT-30">
-                <form>
-                  <div class="row">
-                    <div class="mb-3 col-md-6">
-                      <label class="form-label" for="inputEmail4">Email</label>
-                      <input type="email" class="form-control" id="inputEmail4" placeholder="Email">
-                    </div>
-                    <div class="mb-3 col-md-6">
-                      <label class="form-label" for="inputPassword4">Password</label>
-                      <input type="password" class="form-control" id="inputPassword4" placeholder="Password">
-                    </div>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label" for="inputAddress">Address</label>
-                    <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St">
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label" for="inputAddress2">Address 2</label>
-                    <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-                  </div>
-                  <div class="row">
-                    <div class="mb-3 col-md-6">
-                      <label class="form-label" for="inputCity">City</label>
-                      <input type="text" class="form-control" id="inputCity">
-                    </div>
-                    <div class="mb-3 col-md-4">
-                      <label class="form-label" for="inputState">State</label>
-                      <select id="inputState" class="form-control">
-                        <option selected>Choose...</option>
-                        <option>...</option>
-                      </select>
-                    </div>
-                    <div class="mb-3 col-md-2">
-                      <label class="form-label" for="inputZip">Zip</label>
-                      <input type="text" class="form-control" id="inputZip">
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="mb-3 col-md-6">
-                      <label class="form-label fw-500">Birthdate</label>
-                      <div class="timepicker-input input-icon mb-3">
-                        <div class="input-group">
-                          <div class="input-group-text bgc-white bd bdwR-0">
-                            <i class="ti-calendar"></i>
-                          </div>
-                          <input type="text" class="form-control bdc-grey-200 start-date" placeholder="Datepicker" data-provide="datepicker">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="mb-3">
-                    <div class="checkbox checkbox-circle checkbox-info peers ai-c">
-                      <input type="checkbox" id="inputCall2" name="inputCheckboxesCall" class="peer">
-                      <label for="inputCall2" class="form-label peers peer-greed js-sb ai-c">
-                        <span class="peer peer-greed">Call John for Dinner</span>
-                      </label>
-                    </div>
-                  </div>
-                  <button type="submit" class="btn btn-primary btn-color">Sign in</button>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div class="masonry-item col-md-6">
-            <div class="bgc-white p-20 bd">
-              <h6 class="c-grey-900">Horizontal Form</h6>
-              <div class="mT-30">
-                <form>
-                  <div class="mb-3 row">
-                    <label for="inputEmail3" class="form-label col-sm-2 col-form-label">Email</label>
-                    <div class="col-sm-10">
-                      <input type="email" class="form-control" id="inputEmail3" placeholder="Email">
-                    </div>
-                  </div>
-                  <div class="mb-3 row">
-                    <label for="inputPassword3" class="form-label col-sm-2 col-form-label">Password</label>
-                    <div class="col-sm-10">
-                      <input type="password" class="form-control" id="inputPassword3" placeholder="Password">
-                    </div>
-                  </div>
-                  <fieldset class="mb-3">
+          <h4 class="c-grey-900 mT-10 mB-30">Inserir dados</h4>
+          <div class="row gap-20 masonry pos-r">
+            <div class="masonry-sizer col-md-6"></div>
+            <div class="masonry-item col-md-6">
+              <div class="bgc-white p-20 bd">
+                <h5 class="c-grey-900">Adicionar uma leitura</h5>
+                <div class="mT-30">
+                  <form>
                     <div class="row">
-                      <legend class="col-form-legend col-sm-2">Radios</legend>
-                      <div class="col-sm-10">
-                        <div class="form-check">
-                          <label class="form-label form-check-label">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
-                            Option one is this and that&mdash;be sure to include why it's great
-                          </label>
-                        </div>
-                        <div class="form-check">
-                          <label class="form-label form-check-label">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios2" value="option2">
-                            Option two can be something else and selecting it will deselect option one
-                          </label>
-                        </div>
-                        <div class="form-check disabled">
-                          <label class="form-label form-check-label">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios3" value="option3" disabled>
-                            Option three is disabled
-                          </label>
-                        </div>
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label fw-500" for="inputType">Tipo de Sensor</label>
+                        <select id="inputType" class="form-control remove-placeholder">
+                          <option value="" disabled selected></option>
+                          <option value="quimico">Químico</option>
+                          <option value="radiologico">Radiológico</option>
+                        </select>
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label fw-500" for="inputSensor">Modelo do Sensor</label>
+                        <select id="inputSensor" class="form-control remove-placeholder"></select>
                       </div>
                     </div>
-                  </fieldset>
-                  <div class="mb-3 row">
-                    <div class="col-sm-2">Checkbox</div>
-                    <div class="col-sm-10">
-                      <div class="form-check">
-                        <label class="form-label form-check-label">
-                          <input class="form-check-input" type="checkbox"> Check me out
-                        </label>
+                    <div class="row">
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label fw-500" for="inputLatitude">Latitude</label>
+                        <input type="text" class="form-control" id="inputLatitude" placeholder="Ex: -22.871112">
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label fw-500" for="inputLongitude">Longitude</label>
+                        <input type="text" class="form-control" id="inputLongitude" placeholder="Ex: -43.428041">
                       </div>
                     </div>
-                  </div>
-                  <div class="mb-3 row">
-                    <div class="col-sm-10">
-                      <button type="submit" class="btn btn-primary btn-color">Sign in</button>
+                    <div class="row">
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label fw-500" for="inputState">Estado</label>
+                        <input type="text" class="form-control" id="inputState" placeholder="Detecção, Alarme, Background...">
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label fw-500" for="inputDanger">Perigo</label>
+                          <select id="inputDanger" class="form-control">
+                            <option value="" disabled selected></option>
+                            <option>Não</option>
+                            <option>Sim</option>
+                          </select>
+                      </div>
+                    </div>  
+                    <div class="row">
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label fw-500">Data da leitura</label>
+                        <div class="timepicker-input input-icon mb-3">
+                          <div class="input-group">
+                            <div class="input-group-text bgc-white bd bdwR-0">
+                              <i class="ti-calendar"></i>
+                            </div>
+                            <input type="text" class="form-control bdc-grey-200 start-date" placeholder="Escolha uma data..." data-provide="datepicker" data-date-format = 'dd/mm/yyyy'>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="mb-3 col-md-6">
+                        <label class="form-label fw-500" for="inputTime">Horário</label>
+                        <input type="time" class="form-control remove-placeholder" id="inputTime">
+                      </div>
                     </div>
-                  </div>
-                </form>
+                    <button type="submit" class="btn btn-primary btn-color">Enviar</button>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
-          <div class="masonry-item col-md-6">
-            <div class="bgc-white p-20 bd">
-              <h6 class="c-grey-900">Disabled Forms</h6>
-              <div class="mT-30">
-                <form>
-                  <fieldset disabled>
+            <div class="masonry-item col-md-6">
+              <div class="bgc-white p-20 bd">
+                <h5 class="c-grey-900">Adicionar múltiplas leituras</h5>
+                <div class="mT-30">
+                  <form>
                     <div class="mb-3">
-                      <label class="form-label" for="disabledTextInput">Disabled input</label>
-                      <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input">
-                    </div>
-                    <div class="mb-3">
-                      <label class="form-label" for="disabledSelect">Disabled select menu</label>
-                      <select id="disabledSelect" class="form-control">
-                        <option>Disabled select</option>
-                      </select>
-                    </div>
-                    <div class="form-check">
-                      <label class="form-label" class="form-check-label">
-                        <input class="form-check-input" type="checkbox"> Can't check this
-                      </label>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-color">Submit</button>
-                  </fieldset>
-                </form>
-              </div>
-            </div>
-          </div>
-          <div class="masonry-item col-md-6">
-            <div class="bgc-white p-20 bd">
-              <h6 class="c-grey-900">Validation</h6>
-              <div class="mT-30">
-                <form class="container" id="needs-validation" novalidate>
-                  <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <label class="form-label" for="validationCustom01">First name</label>
-                      <input type="text" class="form-control" id="validationCustom01" placeholder="First name" value="Mark" required>
-                    </div>
-                    <div class="col-md-6 mb-3">
-                      <label class="form-label" for="validationCustom02">Last name</label>
-                      <input type="text" class="form-control" id="validationCustom02" placeholder="Last name" value="Otto" required>
+                      <label class="form-label fw-500" for="inputCSV">Arquivo CSV</label>
+                      <input type="file" class="form-control" id="inputCSV" accept=".csv">
                     </div>
                   </div>
-                  <div class="row">
-                    <div class="col-md-6 mb-3">
-                      <label class="form-label" for="validationCustom03">City</label>
-                      <input type="text" class="form-control" id="validationCustom03" placeholder="City" required>
-                      <div class="invalid-feedback">
-                        Please provide a valid city.
-                      </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label class="form-label" for="validationCustom04">State</label>
-                      <input type="text" class="form-control" id="validationCustom04" placeholder="State" required>
-                      <div class="invalid-feedback">
-                        Please provide a valid state.
-                      </div>
-                    </div>
-                    <div class="col-md-3 mb-3">
-                      <label class="form-label" for="validationCustom05">Zip</label>
-                      <input type="text" class="form-control" id="validationCustom05" placeholder="Zip" required>
-                      <div class="invalid-feedback">
-                        Please provide a valid zip.
-                      </div>
-                    </div>
-                  </div>
-                  <button class="btn btn-primary btn-color" type="submit">Submit form</button>
-                </form>
-                <script>
-                  // Example starter JavaScript for disabling form submissions if there are invalid fields
-                  (function() {
-                    'use strict';
-
-                    window.addEventListener('load', function() {
-                      var form = document.getElementById('needs-validation');
-                      form.addEventListener('submit', function(event) {
-                        if (form.checkValidity() === false) {
-                          event.preventDefault();
-                          event.stopPropagation();
-                        }
-                        form.classList.add('was-validated');
-                      }, false);
-                    }, false);
-                  })();
-                </script>
+                    <button type="submit" class="btn btn-primary btn-color">Enviar</button>
+                  </form>
+                </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      var options="<option disabled selected>Selecione o tipo de sensor</option>";
+      $("#inputType").on('change',function(){ 
+          var value=$(this).val(); 
+          options="<option disabled selected></option>";
+          if(value=="quimico") 
+          {
+              options+="<option value='GDA-X'>GDA-X</option>"
+                      +"<option value='LS-ID'>LS-ID</option>";
+              $("#inputSensor").html(options);
+          }
+          else if(value=="radiologico") 
+          {
+              options+='<option value="SPIR-ID">SPIR-ID</option>'
+                      +'<option value="PRD RadEye">PRD RadEye</option>';
+              $("#inputSensor").html(options);
+          }
+          else
+              $("#inputSensor").find('option').remove()
+      });
+    </script>
   
 {% endblock content %}
 

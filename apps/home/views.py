@@ -5,7 +5,7 @@ Copyright (c) 2019 - present AppSeed.us
 from .models import Detection
 from .aux_functions import *
 from .map import render_map, get_map
-from .forms import render_upload_form
+# from .forms import render_upload_form
 from django import template
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
@@ -21,7 +21,6 @@ def index(request):
     context['data'] = get_statistic_data_from_api()
     html_template = loader.get_template('home/index.html')
     return HttpResponse(html_template.render(context, request))
-
 
 @login_required(login_url="/login/")
 def pages(request):

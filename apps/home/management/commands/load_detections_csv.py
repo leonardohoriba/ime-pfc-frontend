@@ -17,8 +17,8 @@ class Command(BaseCommand):
         # Cria uma nova coluna "Danger" com valores aleatórios de 0 ou 1
         df['Danger'] = df.apply(lambda _: random.randint(0, 1), axis=1)
         # Acrescenta as colunas do tipo de sensor e nome do sensor
-        df['Sensor Type'] = 'Radiológico'
-        df['Sensor'] = 'SPIR-ID'
+        df['Sensor Type'] = 'Radiologico'
+        df['Sensor'] = 'SpirId'
 
         records = df.to_dict('records')
         for record in records:
