@@ -11,7 +11,7 @@
       <div class="d-n@sm- peer peer-greed h-100 pos-r bgr-n bgpX-c bgpY-c bgsz-cv" style='background-image: url("{{ ASSETS_ROOT }}/images/background.webp")'>
         <div class="pos-a centerXY">
    
-            <img class="pos-a centerXY" src="{{ ASSETS_ROOT }}/images/logo_dqbrn.png" alt="">
+            <img class="pos-a centerXY" src="{{ ASSETS_ROOT }}/images/dqbrn.png" alt="">
      
         </div>
       </div>
@@ -26,13 +26,13 @@
           {% csrf_token %}
 
           <div class="mb-3">
-            <label class="text-normal text-dark form-label">Username</label>
+            <label class="text-normal text-dark form-label">Usuário</label>
             {{ form.username }}
           </div>
           <span class="text-error">{{ form.username.errors }}</span>
 
           <div class="mb-3">
-            <label class="text-normal text-dark form-label">Password</label>
+            <label class="text-normal text-dark form-label">Senha</label>
             {{ form.password }}
           </div>
           <span class="text-error">{{ form.password.errors }}</span>
@@ -41,8 +41,8 @@
             <button type="submit" name="login" class="btn btn-primary">Login</button>
 
             &nbsp; &nbsp;
-            <span class="text-small font-weight-semibold">Not a member?</span>
-            <a href="{% url 'register' %}" class="text-black text-small">Register</a>  
+            <span class="text-small font-weight-semibold">Não possui conta?</span>
+            <a href="{% url 'register' %}" class="text-black text-small">Registre-se</a>  
           </div>
 
         </form>

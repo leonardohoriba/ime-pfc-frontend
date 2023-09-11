@@ -12,17 +12,25 @@
       <div id='mainContent'>
         <div class="container-fluid">
           <h4 class="c-grey-900 mT-10 mB-30">Inserir dados</h4>
+          {% if messages %}
+            {% for message in messages %}
+            <div class="alert {{message.tags}} alert-dismissible fade show" role="alert"> 
+              <strong>{{message}}</strong>
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+          {% endif %}
           <div class="row gap-20 masonry pos-r">
             <div class="masonry-sizer col-md-6"></div>
             <div class="masonry-item col-md-6">
               <div class="bgc-white p-20 bd">
                 <h5 class="c-grey-900">Adicionar uma leitura</h5>
                 <div class="mT-30">
-                  <form>
+                  <form action="" method="POST"> {% csrf_token %}
                     <div class="row">
                       <div class="mb-3 col-md-6">
                         <label class="form-label fw-500" for="inputType">Tipo de Sensor</label>
-                        <select id="inputType" class="form-control remove-placeholder">
+                        <select name="inputType" id="inputType" class="form-control remove-placeholder">
                           <option value="" disabled selected></option>
                           <option value="quimico">Químico</option>
                           <option value="radiologico">Radiológico</option>
@@ -30,31 +38,27 @@
                       </div>
                       <div class="mb-3 col-md-6">
                         <label class="form-label fw-500" for="inputSensor">Modelo do Sensor</label>
-                        <select id="inputSensor" class="form-control remove-placeholder"></select>
+                        <select name="inputSensor" id="inputSensor" class="form-control remove-placeholder"></select>
                       </div>
                     </div>
                     <div class="row">
                       <div class="mb-3 col-md-6">
                         <label class="form-label fw-500" for="inputLatitude">Latitude</label>
-                        <input type="text" class="form-control" id="inputLatitude" placeholder="Ex: -22.871112">
+                        <input type="text" class="form-control" name="inputLatitude" placeholder="Ex: -22.871112">
                       </div>
                       <div class="mb-3 col-md-6">
                         <label class="form-label fw-500" for="inputLongitude">Longitude</label>
-                        <input type="text" class="form-control" id="inputLongitude" placeholder="Ex: -43.428041">
+                        <input type="text" class="form-control" name="inputLongitude" placeholder="Ex: -43.428041">
                       </div>
                     </div>
                     <div class="row">
                       <div class="mb-3 col-md-6">
                         <label class="form-label fw-500" for="inputState">Estado</label>
-                        <input type="text" class="form-control" id="inputState" placeholder="Detecção, Alarme, Background...">
+                        <input type="text" class="form-control" name="inputState" placeholder="Detecção, Alarme, Background...">
                       </div>
                       <div class="mb-3 col-md-6">
-                        <label class="form-label fw-500" for="inputDanger">Perigo</label>
-                          <select id="inputDanger" class="form-control">
-                            <option value="" disabled selected></option>
-                            <option>Não</option>
-                            <option>Sim</option>
-                          </select>
+                        <label class="form-label fw-500" for="inputRead">Leitura</label>
+                        <input type="text" class="form-control" name="inputLeitura">
                       </div>
                     </div>  
                     <div class="row">
@@ -65,13 +69,13 @@
                             <div class="input-group-text bgc-white bd bdwR-0">
                               <i class="ti-calendar"></i>
                             </div>
-                            <input type="text" class="form-control bdc-grey-200 start-date" placeholder="Escolha uma data..." data-provide="datepicker" data-date-format = 'dd/mm/yyyy'>
+                            <input type="text" name="inputDate" class="form-control bdc-grey-200 start-date" placeholder="Escolha uma data..." data-provide="datepicker" data-date-format = 'dd-mm-yyyy'>
                           </div>
                         </div>
                       </div>
                       <div class="mb-3 col-md-6">
                         <label class="form-label fw-500" for="inputTime">Horário</label>
-                        <input type="time" class="form-control remove-placeholder" id="inputTime">
+                        <input type="time" name="inputTime" class="form-control remove-placeholder" id="inputTime">
                       </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-color">Enviar</button>
@@ -83,10 +87,11 @@
               <div class="bgc-white p-20 bd">
                 <h5 class="c-grey-900">Adicionar múltiplas leituras</h5>
                 <div class="mT-30">
-                  <form>
+                  <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
                     <div class="mb-3">
                       <label class="form-label fw-500" for="inputCSV">Arquivo CSV</label>
-                      <input type="file" class="form-control" id="inputCSV" accept=".csv">
+                      <input type="file" class="form-control" id="inputCSV" name="inputCSV" accept=".csv">
                     </div>
                   </div>
                     <button type="submit" class="btn btn-primary btn-color">Enviar</button>

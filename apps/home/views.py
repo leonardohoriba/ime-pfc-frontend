@@ -5,6 +5,7 @@ Copyright (c) 2019 - present AppSeed.us
 from .models import Detection
 from .aux_functions import *
 from .map import render_map, get_map
+from .forms import render_upload_form
 # from .forms import render_upload_form
 from django import template
 from django.contrib.auth.decorators import login_required
@@ -38,6 +39,9 @@ def pages(request):
         if load_template == 'map.html':
             return render_map(request)
         
+        if load_template == 'forms.html':
+            return render_upload_form(request)
+        
         if load_template == 'datatable.html':
             detections = Detection.objects.all()
             context['detections'] = detections
@@ -55,6 +59,6 @@ def pages(request):
         html_template = loader.get_template('home/page-404.html')
         return HttpResponse(html_template.render(context, request))
 
-    except:
-        html_template = loader.get_template('home/page-500.html')
-        return HttpResponse(html_template.render(context, request))
+    # except:
+    #     html_template = loader.get_template('home/page-500.html')
+    #     return HttpResponse(html_template.render(context, request))
