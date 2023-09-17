@@ -13,6 +13,7 @@ class Detection(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
     danger = models.FloatField()
+    #reading = models.FloatField()
     sensor = models.CharField(max_length=50)
     sensortype = models.CharField(max_length=25)
 

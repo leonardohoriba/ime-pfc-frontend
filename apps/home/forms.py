@@ -1,27 +1,11 @@
 from django import forms
 import pandas as pd
-import random
 from .models import Detection
 from django.template import loader
 from django.http import HttpResponse
 from django.contrib import messages
-
-# from django import forms
-
-# class DetectionForm(forms.Form):
-#     # Defina os campos do formulário Django correspondentes aos campos do seu formulário HTML
-#     input_type = forms.ChoiceField(choices=[('', 'Selecione o tipo de sensor'), ('quimico', 'Químico'), ('radiologico', 'Radiológico')])
-#     input_sensor = forms.ChoiceField(choices=[])
-#     input_latitude = forms.CharField(max_length=100)
-#     input_longitude = forms.CharField(max_length=100)
-#     input_state = forms.CharField(max_length=100)
-#     input_danger = forms.ChoiceField(choices=[('', ''), ('nao', 'Não'), ('sim', 'Sim')])
-#     input_date = forms.DateField(input_formats=['%d/%m/%Y'])
-#     input_time = forms.TimeField(input_formats=['%H:%M:%S.%f'], required=False)
-#     input_csv = forms.FileField(required=False)
-
-# class CSVUploadForm(forms.Form):
-#     csv_file = forms.FileField(label='Selecione um arquivo CSV')
+import requests
+import json
 
 def render_upload_form(request):
     context = {}
@@ -30,49 +14,50 @@ def render_upload_form(request):
     if request.method == 'POST':
         data_file = request.FILES.get('inputCSV', None)
         # CSV Upload
-        if data_file:
-            keys = ('Time','State','Longitude','Latitude')
-            df = pd.read_csv(data_file, delimiter=';', usecols=keys, decimal='.')
-            # Filtrar as linhas com valores "--" ou vazios para latitude e longitude
-            df = df[(df['Latitude'] != "") & (df['Longitude'] != "") & (df['Latitude'] != "--") & (df['Longitude'] != "--")]
-            # Cria uma nova coluna "Danger" com valores aleatórios de 0 ou 1
-            df['Danger'] = df.apply(lambda _: random.randint(0, 1), axis=1)
-            # Acrescenta as colunas do tipo de sensor e nome do sensor
-            df['Sensor Type'] = 'Radiologico'
-            df['Sensor'] = 'SpirId'
-            records = df.to_dict('records')
+        if data_file:  
+            df = pd.read_csv(data_file, delimiter=';', decimal='.')
+            data = df.to_dict(orient='records')
+            json_data = json.dumps(data, indent=4)
+            
             try:
-                for record in records:
-                # Acrescenta os dados na base de dados
-                    Detection.objects.get_or_create(
-                        time=record['Time'],
-                        state=record['State'],
-                        latitude=record['Latitude'],
-                        longitude=record['Longitude'],
-                        danger=record['Danger'],
-                        sensortype=record['Sensor Type'],
-                        sensor=record['Sensor']
-                    )
-                messages.success(request, "Arquivo adicionado à base de dados.")
-            except:
-                messages.error(request, "Não foi possível adicionar o arquivo.")
+                url = "https://backend-pr5m6uxofa-rj.a.run.app/uploadSpirId"
+                response = requests.post(url,data=json_data)
+                
+                if response.status_code == 200:
+                    messages.success(request, "Arquivo adicionado à base de dados.")
+                else:
+                    messages.error(request, "Não foi possível adicionar o arquivo. Código de status: {}".format(response.status_code))
+            except Exception as e:
+                messages.error(request, "Ocorreu um erro durante a solicitação: {}".format(str(e)))
     
         # Single detection upload
         else:
             date = request.POST.get('inputDate', False)
             time = request.POST.get('inputTime', False)
             datetime = str(date) + " " + str(time)
-            state = request.POST.get('inputState', False)
+            # state = request.POST.get('inputState', False)
             latitude = request.POST.get('inputLatitude', False)
             longitude = request.POST.get('inputLongitude', False)
-            danger = 1
+            reading = request.POST.get('inputReading', False)
             sensor = request.POST.get('inputSensor', False)
             sensortype = request.POST.get('inputType', False)
             try:
-                new_detection = Detection(time=datetime, state=state, latitude=latitude, longitude=longitude, danger=danger, sensor=sensor, sensortype=sensortype)
-                new_detection.save()
-                messages.success(request, "Leitura adicionada à base de dados.")
-            except:
-                messages.error(request, "Não foi possível adicionar a leitura.")
+                url = "https://backend-pr5m6uxofa-rj.a.run.app/uploadIndividualRegister"
+                data = {
+                    "data":datetime,
+                    "estado":"funcionando",
+                    "longitude":str(longitude),
+                    "latitude":str(latitude),
+                    "leitura":reading,
+                    "tipoleitor":sensortype,
+                    "leitor":sensor
+                }
+                response = requests.post(url,data=json.dumps(data))
+                if response.status_code == 200:
+                    messages.success(request, "Leitura adicionada à base de dados.")
+                else:
+                    messages.error(request, "Não foi possível adicionar a leitura. Código de status: {}".format(response.status_code))
+            except Exception as e:
+                messages.error(request, "Ocorreu um erro durante a solicitação: {}".format(str(e)))
 
     return HttpResponse(html_template.render(context, request))

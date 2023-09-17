@@ -3,19 +3,22 @@ from folium import Marker, Popup
 from folium.plugins import MarkerCluster
 from jinja2 import Template
 import json
-from .models import Detection
 from django.template import loader
 from django.http import HttpResponse
+import requests
+from dateutil import parser
+from .models import Detection
+
 
 # Constantes
 colors = {
-    0: 'green',  # danger = 0
-    1: 'red',    # danger = 1
+    False: 'green',  # danger = False
+    True: 'red',    # danger = True
 }
 
 icons = {
-    0: 'info',         # danger = 0
-    1: 'exclamation',  # danger = 1
+    False: 'info',         # danger = False
+    True: 'exclamation',  # danger = True
 }
 
 # Funcao para criar os icones que representam os clusters
@@ -64,18 +67,36 @@ class MarkerWithProps(Marker):
         self.props = json.loads(json.dumps(props))
 
 def get_map():
-    detections = Detection.objects.all()
+    try:
+        url = "https://backend-pr5m6uxofa-rj.a.run.app/table/spirid"
+        response = requests.get(url)
+        response.raise_for_status() 
+        detections = response.json()
+    except requests.exceptions.RequestException as e:
+        # Handle API request errors here
+        print(f"API Request Error: {e}")
+        detections = [] 
+
     initial_location = [-22.870974, -43.42801]
     m = folium.Map(location=initial_location, zoom_start=16, min_zoom=1.5, max_bounds=True)
     marker_cluster = MarkerCluster(icon_create_function=icon_create_function, showCoverageOnHover=False)
+
     for detection in detections:
-        MarkerWithProps(
-            props={'danger': detection.danger},
-            location=[detection.latitude, detection.longitude],
-            popup=Popup('Data: {}\nCoordenadas: {}'.format(detection.time, [detection.latitude, detection.longitude]), max_width=200),
-            tooltip='Clique para mais informações',
-            icon=(folium.Icon(color=colors[detection.danger], icon=icons[detection.danger], prefix='fa')),
-        ).add_to(marker_cluster)
+        try:
+            # Parse the ISO 8601 timestamp to a more readable format
+            timestamp = parser.parse(detection['Time']).strftime('%Y-%m-%d %H:%M:%S')
+            print(detection)
+            MarkerWithProps(
+                props={'danger': str(detection['Danger'])},
+                location=[float(detection['Latitude']), float(detection['Longitude'])],
+                popup=Popup('Data: {}\nCoordenadas: [{}, {}]'.format(timestamp, detection['Latitude'], detection['Longitude']), max_width=200),
+                tooltip='Clique para mais informações',
+                icon=(folium.Icon(color=colors[detection['Danger']], icon=icons[detection['Danger']], prefix='fa')),
+            ).add_to(marker_cluster)
+        except Exception as e:
+            # Handle marker creation errors here
+            print(f"Marker Creation Error: {e}")
+    
     marker_cluster.add_to(m)
     return m._repr_html_()
 
