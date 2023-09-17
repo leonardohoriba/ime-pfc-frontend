@@ -122,8 +122,10 @@ celerybeat.pid
 # Environments
 .env
 .venv
+.pfc_front
 env/
 venv/
+pfc_front/
 ENV/
 env.bak/
 venv.bak/
