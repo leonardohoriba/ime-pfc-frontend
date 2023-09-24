@@ -19,8 +19,8 @@
                   <table id="dataTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
                       <thead>
                         <tr>
-                          <!--<th>Tipo de Sensor</th>
-                          <th>Modelo</th>-->
+                          <!-- <th>Tipo de Sensor</th> -->
+                          <th>Modelo</th>
                           <th>Data</th>
                           <th>Estado</th>
                           <th>Latitude</th>
@@ -30,8 +30,8 @@
                       </thead>
                       <tfoot>
                         <tr>
-                          <!--<th>Tipo de Sensor</th>
-                          <th>Modelo</th>-->
+                          <!-- <th>Tipo de Sensor</th> -->
+                          <th>Modelo</th>
                           <th>Data</th>
                           <th>Estado</th>
                           <th>Latitude</th>
@@ -42,14 +42,14 @@
                       <tbody>
                       {% for detection in detections %}
                         <tr>
-                          <!--<th>{{detection.sensortype}}</th>
-                          <th>{{detection.sensor}}</th>-->
-                          <td>{{detection.Time}}</td>
-                          <td>{{detection.State}}</td>
-                          <td>{{detection.Latitude}}</td>
-                          <td>{{detection.Longitude}}</td>
+                          <!-- <th>{{detection.sensortype}}</th> -->
+                          <th>{{detection.leitor}}</th>
+                          <td>{{detection.data|date:"Y/m/d H:i"}}</td>
+                          <td>{{detection.estado}}</td>
+                          <td>{{detection.latitude}}</td>
+                          <td>{{detection.longitude}}</td>
                           <td>
-                            {% if detection.Danger %}
+                            {% if detection.perigo %}
                               Sim
                             {% else %}
                               Não

@@ -7,7 +7,7 @@ from django.template import loader
 from django.http import HttpResponse
 import requests
 from dateutil import parser
-from .models import Detection
+# from .models import Detection
 
 
 # Constantes
@@ -68,7 +68,7 @@ class MarkerWithProps(Marker):
 
 def get_map():
     try:
-        url = "https://backend-pr5m6uxofa-rj.a.run.app/table/spirid"
+        url = "https://backend-pr5m6uxofa-rj.a.run.app/last_100"
         response = requests.get(url)
         response.raise_for_status() 
         detections = response.json()
@@ -84,14 +84,13 @@ def get_map():
     for detection in detections:
         try:
             # Parse the ISO 8601 timestamp to a more readable format
-            timestamp = parser.parse(detection['Time']).strftime('%Y-%m-%d %H:%M:%S')
-            print(detection)
+            datetime = parser.parse(detection['data']).strftime('%Y-%m-%d %H:%M:%S')
             MarkerWithProps(
-                props={'danger': str(detection['Danger'])},
-                location=[float(detection['Latitude']), float(detection['Longitude'])],
-                popup=Popup('Data: {}\nCoordenadas: [{}, {}]'.format(timestamp, detection['Latitude'], detection['Longitude']), max_width=200),
+                props={'danger': str(detection['perigo'])},
+                location=[float(detection['latitude']), float(detection['longitude'])],
+                popup=Popup('Data: {}\nCoordenadas: [{}, {}]'.format(datetime, detection['latitude'], detection['longitude']), max_width=200),
                 tooltip='Clique para mais informações',
-                icon=(folium.Icon(color=colors[detection['Danger']], icon=icons[detection['Danger']], prefix='fa')),
+                icon=(folium.Icon(color=colors[detection['perigo']], icon=icons[detection['perigo']], prefix='fa')),
             ).add_to(marker_cluster)
         except Exception as e:
             # Handle marker creation errors here

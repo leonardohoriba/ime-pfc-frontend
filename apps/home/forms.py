@@ -6,6 +6,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 import requests
 import json
+from unidecode import unidecode
 
 def render_upload_form(request):
     context = {}
@@ -24,7 +25,10 @@ def render_upload_form(request):
                 response = requests.post(url,data=json_data)
                 
                 if response.status_code == 200:
-                    messages.success(request, "Arquivo adicionado à base de dados.")
+                    if response.text == '"Sucesso"':
+                        messages.success(request, response.text)
+                    else:
+                        messages.error(request, response.text)
                 else:
                     messages.error(request, "Não foi possível adicionar o arquivo. Código de status: {}".format(response.status_code))
             except Exception as e:
@@ -34,27 +38,41 @@ def render_upload_form(request):
         else:
             date = request.POST.get('inputDate', False)
             time = request.POST.get('inputTime', False)
-            datetime = str(date) + " " + str(time)
-            # state = request.POST.get('inputState', False)
+            state = request.POST.get('inputState', False)
             latitude = request.POST.get('inputLatitude', False)
             longitude = request.POST.get('inputLongitude', False)
             reading = request.POST.get('inputReading', False)
             sensor = request.POST.get('inputSensor', False)
             sensortype = request.POST.get('inputType', False)
+
+            # Handling special characters and uppercase letters
+            sensor = sensor.replace('-','').lower()
+            sensortype = sensortype.replace('-','').lower()
+            state = unidecode(state).lower()
+
+            # Handling date format
+            day, month, year = map(int, date.split('-'))
+            new_date = f"{year:04d}-{month:02d}-{day:02d}"
+            datetime = str(new_date) + " " + str(time)
+
             try:
                 url = "https://backend-pr5m6uxofa-rj.a.run.app/uploadIndividualRegister"
                 data = {
                     "data":datetime,
-                    "estado":"funcionando",
+                    "estado":state,
                     "longitude":str(longitude),
                     "latitude":str(latitude),
                     "leitura":reading,
                     "tipoleitor":sensortype,
                     "leitor":sensor
                 }
+                # print(data)
                 response = requests.post(url,data=json.dumps(data))
                 if response.status_code == 200:
-                    messages.success(request, "Leitura adicionada à base de dados.")
+                    if response.text == 'true':
+                        messages.success(request, "Leitura adicionada à base de dados")
+                    else:
+                        messages.error(request,response.text)
                 else:
                     messages.error(request, "Não foi possível adicionar a leitura. Código de status: {}".format(response.status_code))
             except Exception as e:

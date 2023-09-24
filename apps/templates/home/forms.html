@@ -44,11 +44,13 @@
                     <div class="row">
                       <div class="mb-3 col-md-6">
                         <label class="form-label fw-500" for="inputLatitude">Latitude</label>
-                        <input type="text" class="form-control" name="inputLatitude" placeholder="Ex: -22.871112">
+                        <input type="text" class="form-control" name="inputLatitude" placeholder="Ex: -22.871112" oninput="validateInput(this, 'latitudeWarning')">
+                        <div id="latitudeWarning" class="text-danger" style="display: none;">Entre com um valor válido.</div>
                       </div>
                       <div class="mb-3 col-md-6">
                         <label class="form-label fw-500" for="inputLongitude">Longitude</label>
-                        <input type="text" class="form-control" name="inputLongitude" placeholder="Ex: -43.428041">
+                        <input type="text" class="form-control" name="inputLongitude" placeholder="Ex: -43.428041" oninput="validateInput(this, 'longitudeWarning')">
+                        <div id="longitudeWarning" class="text-danger" style="display: none;">Entre com um valor válido.</div>
                       </div>
                     </div>
                     <div class="row">
@@ -117,12 +119,31 @@
           else if(value=="radiologico") 
           {
               options+='<option value="SPIR-ID">SPIR-ID</option>'
-                      +'<option value="PRD RadEye">PRD RadEye</option>';
+                      +'<option value="PRD-RadEye">PRD-RadEye</option>';
               $("#inputSensor").html(options);
           }
           else
               $("#inputSensor").find('option').remove()
       });
+      function validateInput(inputElement, warningElementId) {
+        var value = inputElement.value;
+
+        // Remove any characters that are not digits, decimal point, or minus sign
+        value = value.replace(/[^-\d.]/g, '');
+
+        // Remove multiple decimal points or consecutive minus signs
+        value = value.replace(/(\..*?)\./g, '$1');
+        value = value.replace(/(-.*?)-/g, '$1');
+
+        // Check if the input value is different from the cleaned value
+        if (inputElement.value !== value) {
+          document.getElementById(warningElementId).style.display = 'block';
+        } else {
+          document.getElementById(warningElementId).style.display = 'none';
+        }
+
+        inputElement.value = value;
+      }
     </script>
   
 {% endblock content %}
