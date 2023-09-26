@@ -1,28 +1,27 @@
-version: '3.8'
+version: '3.9'
+
 services:
-  appseed-app:
-    container_name: appseed_app
-    restart: always
-    env_file: .env
-    build: .
-    networks:
-      - db_network
-      - web_network
-  nginx:
-    container_name: nginx
-    restart: always
-    image: "nginx:latest"
+  app:
+    container_name: django-app
+    build:
+      context: .
     ports:
-      - "5085:5085"
+      - 80:80
     volumes:
-      - ./nginx:/etc/nginx/conf.d
-    networks:
-      - web_network
-    depends_on: 
-      - appseed-app
-networks:
-  db_network:
-    driver: bridge
-  web_network:
-    driver: bridge
- 
+      - ./app
+      - ./creds.json:/secrets/creds.json
+    env_file:
+      - ./.env
+    restart: always
+
+# The proxy will help us connect to remote CloudSQL instance locally.
+# Make sure to turn off any VPNs for the proxy to work.
+  cloudsqlproxy:
+    container_name: cloudsql-proxy
+    image: gcr.io/cloudsql-docker/gce-proxy:1.19.1
+    volumes:
+      - ./creds.json:/secrets/cloudsql/creds.json
+    ports:
+      - 127.0.0.1:5432:5432
+    command: /cloud_sql_proxy -instances="django-cloudrun-project:us-east1:django-dev-db"=tcp:0.0.0.0:5432 -credential_file=/secrets/cloudsql/creds.json
+    restart: always

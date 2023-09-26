@@ -1,18 +1,17 @@
 FROM python:3.9
 
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
 COPY requirements.txt .
+COPY . .
+
 # install python dependencies
 RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY . .
+ENV PATH="/.env"
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-# running migrations
-RUN python manage.py migrate
+USER django-user
 
-# gunicorn
-CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
+# Gunicorn as app server
+CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 app.wsgi:application

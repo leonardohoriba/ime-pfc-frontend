@@ -28,8 +28,8 @@ DEBUG = env('DEBUG')
 ASSETS_ROOT = os.getenv('ASSETS_ROOT', '/static/assets') 
 
 # load production server from .env
-ALLOWED_HOSTS        = ['localhost', 'localhost:85', '127.0.0.1',               env('SERVER', default='127.0.0.1') ]
-CSRF_TRUSTED_ORIGINS = ['http://localhost:85', 'http://127.0.0.1', 'https://' + env('SERVER', default='127.0.0.1') ]
+ALLOWED_HOSTS        = ['localhost', 'localhost:85', '127.0.0.1',               env('SERVER', default='127.0.0.1'),  'pfcime.rj.r.appspot.com']
+CSRF_TRUSTED_ORIGINS = ['http://localhost:85', 'http://127.0.0.1', 'https://' + env('SERVER', default='127.0.0.1'),  'https://pfcime.rj.r.appspot.com']
 
 # Application definition
 
@@ -89,24 +89,35 @@ MESSAGE_TAGS = {
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if os.environ.get('DB_ENGINE'):
-    DATABASES = { 
-      'default': {
-        'ENGINE'  : os.environ.get('DB_ENGINE'), 
-        'NAME'    : os.getenv('DB_NAME'     , ''),
-        'USER'    : os.getenv('DB_USERNAME' , ''),
-        'PASSWORD': os.getenv('DB_PASS'     , ''),
-        'HOST'    : os.getenv('DB_HOST'     , ''),
-        'PORT'    : os.getenv('DB_PORT'     , 5432),
-        }, 
-    }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'db.sqlite3',
-        }
-    }
+
+DATABASES = { 
+    'default': {
+    'ENGINE'  : os.environ.get('DB_ENGINE', default='django.db.backends.postgresql_psycopg2'), 
+    'NAME'    : os.getenv('DB_NAME'     , default='postgres'),
+    'USER'    : os.getenv('DB_USERNAME' , default='marin'),
+    'PASSWORD': os.getenv('DB_PASS'     , default='marin'),
+    'HOST'    : os.getenv('DB_HOST'     , default='35.247.250.121'),
+    'PORT'    : os.getenv('DB_PORT'     , default=5432),
+    }}
+
+# if os.environ.get('DB_ENGINE'):
+#     DATABASES = { 
+#       'default': {
+#         'ENGINE'  : os.environ.get('DB_ENGINE', default='django.db.backends.postgresql_psycopg2'), 
+#         'NAME'    : os.getenv('DB_NAME'     , default='postgres'),
+#         'USER'    : os.getenv('DB_USERNAME' , default='marin'),
+#         'PASSWORD': os.getenv('DB_PASS'     , default='marin'),
+#         'HOST'    : os.getenv('DB_HOST'     , default='35.247.250.121'),
+#         'PORT'    : os.getenv('DB_PORT'     , default=5432),
+#         }, 
+#     }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.sqlite3',
+#             'NAME': 'db.sqlite3',
+#         }
+#     }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
