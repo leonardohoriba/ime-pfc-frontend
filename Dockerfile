@@ -12,7 +12,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # running migrations
-RUN python manage.py migrate
+ENV PORT 8000
 
 # gunicorn
-CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
+CMD [ "python", "/manage.py", "runserver", "0.0.0.0:8000" ]
+
