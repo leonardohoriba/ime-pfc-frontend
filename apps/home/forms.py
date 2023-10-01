@@ -66,7 +66,6 @@ def render_upload_form(request):
                     "tipoleitor":sensortype,
                     "leitor":sensor
                 }
-                # print(data)
                 response = requests.post(url,data=json.dumps(data))
                 if response.status_code == 200:
                     if response.text == 'true':

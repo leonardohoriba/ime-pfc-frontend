@@ -34,10 +34,26 @@ def get_datatable():
                     if leitor:
                         detection["leitor"] = leitor
 
+        # Handling state format
+        mapping = {
+            "alarm": "Alarm",
+            "detection": "Detection",
+            "breakdown": "Breakdown",
+            "background": "Background"
+        }
+        for detection in detections:
+                if "estado" in detection:
+                    original = detection["estado"].lower()
+                    leitor = mapping.get(original)
+                    if leitor:
+                        detection["estado"] = leitor
+
     except requests.exceptions.RequestException as e:
         # Handle API request errors here
         print(f"API Request Error: {e}")
         detections = [] 
+    except Exception as e:
+         print(f"Datatable item creation error: {e}")
     return detections
 
 def render_datatable(request):

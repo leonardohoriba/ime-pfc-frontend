@@ -85,10 +85,37 @@ def get_map():
         try:
             # Parse the ISO 8601 timestamp to a more readable format
             datetime = parser.parse(detection['data']).strftime('%Y-%m-%d %H:%M:%S')
+
+            # Handling sensor name format
+            mapping = {
+                "spirid": "SPIR-ID",
+                "gdax": "GDA-X",
+                "lsid": "LS-ID",
+                "prdradeye": "PRD-RadEye"
+            }
+            for detection in detections:
+                    if "leitor" in detection:
+                        original = detection["leitor"].lower()
+                        leitor = mapping.get(original)
+                        if leitor:
+                            detection["leitor"] = leitor
+
+            #html that will appear in popup
+            html = folium.Html(f"""
+                <!DOCTYPE html>
+                <html>
+                <div style="font-family: Arial, sans-serif; max-width: 200px;">
+                    <p><strong>Aparelho:</strong> {detection['leitor']}</p>
+                    <p><strong>Data:</strong> {datetime}</p>
+                    <p><strong>Coordenadas:</strong> [{detection['latitude']}, {detection['longitude']}]</p>
+                    <p><strong>Leitura:</strong> {detection['leitura']}</p>
+                </div>
+                </html>
+            """, script=True)
             MarkerWithProps(
                 props={'danger': str(detection['perigo'])},
                 location=[float(detection['latitude']), float(detection['longitude'])],
-                popup=Popup('Data: {}\nCoordenadas: [{}, {}]'.format(datetime, detection['latitude'], detection['longitude']), max_width=200),
+                popup=Popup(html, max_width=200),
                 tooltip='Clique para mais informações',
                 icon=(folium.Icon(color=colors[detection['perigo']], icon=icons[detection['perigo']], prefix='fa')),
             ).add_to(marker_cluster)
