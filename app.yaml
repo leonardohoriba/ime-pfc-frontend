@@ -1,0 +1,7 @@
+runtime: python39
+entrypoint: gunicorn -b :$PORT ime-pfc-frontend.wsgi
+env_variables:
+  DJANGO_SETTINGS_MODULE: 'ime-pfc-frontend.settings'
+handlers:
+- url: /.*
+  script: auto
