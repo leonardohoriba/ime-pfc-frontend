@@ -18,7 +18,6 @@ def get_datatable():
                 detection["data"] = new_date
             except ValueError:
                  print(f"A data {original} não está no formato desejado.")
-                
         
         # Handling sensor name format
         mapping = {

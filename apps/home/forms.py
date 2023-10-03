@@ -26,9 +26,11 @@ def render_upload_form(request):
                 
                 if response.status_code == 200:
                     if response.text == '"Sucesso"':
-                        messages.success(request, response.text)
+                        messages.success(request, "Leituras adicionadas à base de dados.")
                     else:
                         messages.error(request, response.text)
+                elif response.status_code == 413:
+                        messages.error(request, "Não foi possível adicionar, tamanho de arquivo muito grande.")
                 else:
                     messages.error(request, "Não foi possível adicionar o arquivo. Código de status: {}".format(response.status_code))
             except Exception as e:

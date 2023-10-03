@@ -93,12 +93,11 @@ def get_map():
                 "lsid": "LS-ID",
                 "prdradeye": "PRD-RadEye"
             }
-            for detection in detections:
-                    if "leitor" in detection:
-                        original = detection["leitor"].lower()
-                        leitor = mapping.get(original)
-                        if leitor:
-                            detection["leitor"] = leitor
+            if "leitor" in detection:
+                original = detection["leitor"].lower()
+                leitor = mapping.get(original)
+                if leitor:
+                    detection["leitor"] = leitor
 
             #html that will appear in popup
             html = folium.Html(f"""
