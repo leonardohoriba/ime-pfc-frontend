@@ -28,7 +28,7 @@ icon_create_function = '''
         var hasDanger = false;
 
         for (var i = 0; i < markers.length; i++) {
-            if (markers[i].options.props.danger) {
+            if (markers[i].options.props.danger==='True') {
                 hasDanger = true;
                 break;
             }
