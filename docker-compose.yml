@@ -1,7 +1,7 @@
 version: '3.8'
 services:
-  appseed-app:
-    container_name: appseed_app
+  idqbrn:
+    container_name: idqbrn
     restart: always
     env_file: .env
     build: .
@@ -19,7 +19,7 @@ services:
     networks:
       - web_network
     depends_on: 
-      - appseed-app
+      - idqbrn
 networks:
   db_network:
     driver: bridge

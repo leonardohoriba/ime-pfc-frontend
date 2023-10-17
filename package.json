@@ -1,18 +1,18 @@
 {
-    "name": "boilerplate-code-django-dashboard",
-    "mastertemplate": "boilerplate-code-django-dashboard",
-    "version": "2stable.0.1",
-    "description": "Template project - Django Boilerplate Code",
+    "name": "pfc-idqbrn",
+    "mastertemplate": "pfc-idqbrn",
+    "version": "0.1",
+    "description": "PFC idqbrn",
     "scripts": {},
     "repository": {
         "type": "git",
-        "url": "https://github.com/app-generator/boilerplate-code-django-dashboard"
+        "url": "https://github.com/leonardohoriba/ime-pfc-frontend"
     },
     "bugs": {
-        "url": "https://github.com/app-generator/boilerplate-code-django-dashboard/issues",
-        "email": "support@appseed.us"
+        "url": "https://github.com/leonardohoriba/ime-pfc-frontend",
+        "email": "idqbrnpfcime@gmail.com"
     },
-    "author": "AppSeed App Generator <support@appseed.us> (https://appseed.us)",
+    "author": "PFC DQBRN <idqbrnpfcime@gmail.com> (idqbrnpfcime@gmail.com)",
     "engines": {
         "node": ">=10.0.0"
     },

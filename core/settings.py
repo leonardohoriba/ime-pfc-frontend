@@ -1,7 +1,3 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
 
 import os, environ
 from django.contrib.messages import constants as messages
@@ -140,11 +136,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-#############################################################
-# SRC: https://devcenter.heroku.com/articles/django-assets
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATIC_ROOT = os.path.join(CORE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 

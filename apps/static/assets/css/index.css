@@ -1,16 +1,5 @@
 @charset "UTF-8";
-/*
-* @preserve brand-colors 2.1.1
-* http://reimertz.github.io/brand-colors
-* (c) 2017 Pierre Reimertz
-* may be freely distributed under the MIT license.
-*/
-/*!
- * Bootstrap  v5.2.0 (https://getbootstrap.com/)
- * Copyright 2011-2022 The Bootstrap Authors
- * Copyright 2011-2022 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
- */
+
 :root {
   --bs-blue: #2196f3;
   --bs-indigo: #3f51b5;
@@ -66937,7 +66926,7 @@ svg {
   margin-right: -5px;
 }
 
-/*# sourceMappingURL=bootstrap-datepicker.css.map */
+
 .ps__rail-y {
   right: 0 !important;
   left: auto !important;
@@ -69073,7 +69062,4 @@ table.dataTable.no-footer {
     opacity: 0;
   }
 }
-/*
-    ADD Custom code bellow this block  
-*/
-/*# sourceMappingURL=index.css.map */
+

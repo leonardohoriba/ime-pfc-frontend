@@ -1,7 +1,3 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
 from .aux_functions import *
 from .map import render_map, get_map
 from .forms import render_upload_form
